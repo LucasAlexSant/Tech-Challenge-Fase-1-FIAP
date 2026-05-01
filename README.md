@@ -54,8 +54,8 @@ Arquivo CSV com dados históricos de pedidos, entregas e interações com o aten
 
 ```bash
 # Clone o repositório
-git clone <url-do-repositorio>
-cd <nome-do-repositorio>
+git clone <https://github.com/LucasAlexSant/Tech-Challenge-Fase-1-FIAP.git>
+cd <https://github.com/LucasAlexSant/Tech-Challenge-Fase-1-FIAP.git>
 
 # Instale as dependências
 pip install -r requirements.txt
