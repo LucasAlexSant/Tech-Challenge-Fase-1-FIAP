@@ -8,7 +8,7 @@ Analisar dados operacionais de um e-commerce para entender os fatores que influe
 
 ## Descrição da base de dados
 
-Arquivo CSV com dados históricos de pedidos, entregas e interações com o atendimento. Principais variáveis:
+Arquivo CSV com dados históricos de pedidos, entregas e interações com o atendimento.
 
 | Variável | Descrição |
 |---|---|
@@ -33,41 +33,161 @@ Arquivo CSV com dados históricos de pedidos, entregas e interações com o aten
 | `nps_score` | Nota NPS (0–10) |
 
 ## 📁 Estrutura do Repositório
- 
-```
+
+```bash
 ├── data/
-│   └── desafio_nps_fase_1.csv    # Base de dados (2.500 registros, 19 variáveis)
+│   └── desafio_nps_fase_1.csv
 ├── notebooks/
-│   ├── analise_exploratoria_NPS.ipynb   # EDA orientada a negócio
-│   └── modelo_regressão_nps.ipynb       # Modelagem preditiva (regressão)
+│   ├── analise_exploratoria_NPS.ipynb
+│   └── modelo_regressão_nps.ipynb
 ├── images/
-│   ├── nps-image-example.png            # Ilustração do NPS
-│   ├── CSAT-EXAMPLE.jpg                 # Escala CSAT
-│   └── matriz_confusao_random_forest.png
 ├── models/
-│   └── model.pkl                        # Modelo treinado (joblib)
+│   ├── model.pkl
+│   └── scaler.pkl
 ├── docs/
-│   └── Tech-Challenge-Fase-1-FIAP.pptx  # Apresentação do projeto
+├── app.py
 ├── requirements.txt
 └── README.md
 ```
 
 ## Metodologia
 
-1. **Entendimento do negócio** — definição do problema e impacto do NPS no e-commerce
-2. **Definição da target** — análise conceitual da variável `nps_score`
-3. **EDA** — análise exploratória orientada a negócio, identificando padrões e pontos de ruptura na experiência do cliente
-4. **Modelagem preditiva**  — proposta de modelo de classificação ou regressão para prever NPS antes da pesquisa
+1. **Entendimento do negócio** — definição do problema e impacto do NPS no e-commerce  
+2. **Definição da target** — análise conceitual da variável `nps_score`  
+3. **EDA** — análise exploratória orientada a negócio  
+4. **Modelagem preditiva** — regressão para prever NPS antes da pesquisa  
 
-## Como reproduzir
+---
+
+# API REST
+
+A aplicação disponibiliza uma API Flask para previsão de NPS individual e em lote.
+
+## Como executar
 
 ```bash
 # Clone o repositório
-git clone <https://github.com/LucasAlexSant/Tech-Challenge-Fase-1-FIAP.git>
-cd <https://github.com/LucasAlexSant/Tech-Challenge-Fase-1-FIAP.git>
+git clone https://github.com/LucasAlexSant/Tech-Challenge-Fase-1-FIAP.git
 
-# Instale as dependências
+cd Tech-Challenge-Fase-1-FIAP
+
+# Instale dependências
 pip install -r requirements.txt
 
-# Execute os notebooks na ordem numérica em notebooks/
+# Execute a API
+python app.py
 ```
+
+A API será iniciada em:
+
+```bash
+http://localhost:5000
+```
+
+## Documentação Swagger
+
+A documentação interativa da API está disponível via Swagger UI:
+
+```bash
+http://localhost:5000/docs
+```
+
+Nela é possível:
+
+- visualizar todos os endpoints
+- testar requisições diretamente no navegador
+- validar payloads de entrada
+- consultar exemplos de resposta
+
+---
+
+## Endpoints disponíveis
+
+### Health Check
+
+```http
+GET /health
+```
+
+Resposta:
+
+```json
+{
+  "status": "ok"
+}
+```
+
+---
+
+### Predição individual
+
+```http
+POST /predict
+```
+
+Exemplo de payload:
+
+```json
+{
+  "customer_age": 35,
+  "customer_region": "Nordeste",
+  "customer_tenure_months": 14,
+  "order_value": 139.73,
+  "items_quantity": 5,
+  "discount_value": 20.0,
+  "payment_installments": 3,
+  "delivery_time_days": 2,
+  "delivery_delay_days": 0,
+  "freight_value": 15.5,
+  "delivery_attempts": 1,
+  "customer_service_contacts": 0,
+  "resolution_time_days": 0,
+  "complaints_count": 0
+}
+```
+
+Resposta:
+
+```json
+{
+  "nps_previsto": 7.45,
+  "categoria": "Neutro"
+}
+```
+
+---
+
+### Predição em lote
+
+```http
+POST /predict/batch
+```
+
+Recebe uma lista de registros JSON.
+
+Resposta:
+
+```json
+[
+  {
+    "nps_previsto": 9.42,
+    "categoria": "Promotor"
+  },
+  {
+    "nps_previsto": 2.31,
+    "categoria": "Detrator"
+  }
+]
+```
+
+---
+
+## Tecnologias utilizadas
+
+- Python
+- Flask
+- Flasgger
+- Pandas
+- Scikit-learn
+- Joblib
+- Jupyter Notebook
