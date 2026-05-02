@@ -32,14 +32,23 @@ Arquivo CSV com dados históricos de pedidos, entregas e interações com o aten
 | `csat_internal_score` | Score interno de satisfação |
 | `nps_score` | Nota NPS (0–10) |
 
-## Estrutura do repositório
-
+## 📁 Estrutura do Repositório
+ 
 ```
-├── data/               # Base de dados (não versionada)
-├── notebooks/          # Análises e experimentos
-├── models/             # Modelos treinados (quando aplicável)
-├── reports/            # Apresentações e relatórios
-├── requirements.txt    # Dependências do projeto
+├── data/
+│   └── desafio_nps_fase_1.csv    # Base de dados (2.500 registros, 19 variáveis)
+├── notebooks/
+│   ├── analise_exploratoria_NPS.ipynb   # EDA orientada a negócio
+│   └── modelo_regressão_nps.ipynb       # Modelagem preditiva (regressão)
+├── images/
+│   ├── nps-image-example.png            # Ilustração do NPS
+│   ├── CSAT-EXAMPLE.jpg                 # Escala CSAT
+│   └── matriz_confusao_random_forest.png
+├── models/
+│   └── model.pkl                        # Modelo treinado (joblib)
+├── docs/
+│   └── Tech-Challenge-Fase-1-FIAP.pptx  # Apresentação do projeto
+├── requirements.txt
 └── README.md
 ```
 
@@ -48,7 +57,7 @@ Arquivo CSV com dados históricos de pedidos, entregas e interações com o aten
 1. **Entendimento do negócio** — definição do problema e impacto do NPS no e-commerce
 2. **Definição da target** — análise conceitual da variável `nps_score`
 3. **EDA** — análise exploratória orientada a negócio, identificando padrões e pontos de ruptura na experiência do cliente
-4. **Modelagem preditiva** *(opcional)* — proposta de modelo de classificação ou regressão para prever NPS antes da pesquisa
+4. **Modelagem preditiva**  — proposta de modelo de classificação ou regressão para prever NPS antes da pesquisa
 
 ## Como reproduzir
 
