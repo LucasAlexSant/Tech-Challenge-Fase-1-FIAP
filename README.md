@@ -6,9 +6,11 @@ Projeto desenvolvido como parte do Tech Challenge da Fase 1 da pós-graduação 
 
 Analisar dados operacionais de um e-commerce para entender os fatores que influenciam a satisfação dos clientes (NPS) e propor uma estratégia preditiva capaz de antecipar o score antes da aplicação da pesquisa.
 
+---
+
 ## Descrição da base de dados
 
-Arquivo CSV com dados históricos de pedidos, entregas e interações com o atendimento.
+Arquivo CSV com dados históricos de pedidos, entregas e interações com atendimento.
 
 | Variável | Descrição |
 |---|---|
@@ -26,11 +28,13 @@ Arquivo CSV com dados históricos de pedidos, entregas e interações com o aten
 | `freight_value` | Valor do frete |
 | `delivery_attempts` | Tentativas de entrega |
 | `customer_service_contacts` | Contatos com atendimento |
-| `resolution_time_days` | Tempo de resolução de problemas (dias) |
+| `resolution_time_days` | Tempo de resolução de problemas |
 | `complaints_count` | Número de reclamações |
 | `repeat_purchase_30d` | Recompra em 30 dias (0/1) |
 | `csat_internal_score` | Score interno de satisfação |
 | `nps_score` | Nota NPS (0–10) |
+
+---
 
 ## 📁 Estrutura do Repositório
 
@@ -39,7 +43,7 @@ Arquivo CSV com dados históricos de pedidos, entregas e interações com o aten
 │   └── desafio_nps_fase_1.csv
 ├── notebooks/
 │   ├── analise_exploratoria_NPS.ipynb
-│   └── modelo_regressão_nps.ipynb
+│   └── modelo_regressao_nps.ipynb
 ├── images/
 ├── models/
 │   ├── model.pkl
@@ -50,20 +54,18 @@ Arquivo CSV com dados históricos de pedidos, entregas e interações com o aten
 └── README.md
 ```
 
+---
+
 ## Metodologia
 
 1. **Entendimento do negócio** — definição do problema e impacto do NPS no e-commerce  
-2. **Definição da target** — análise conceitual da variável `nps_score`  
+2. **Definição da target** — análise da variável `nps_score`  
 3. **EDA** — análise exploratória orientada a negócio  
-4. **Modelagem preditiva** — regressão para prever NPS antes da pesquisa  
+4. **Modelagem preditiva** — regressão para previsão de NPS  
 
 ---
 
-# API REST
-
-A aplicação disponibiliza uma API Flask para previsão de NPS individual e em lote.
-
-## Como executar
+## Executando os notebooks
 
 ```bash
 # Clone o repositório
@@ -74,7 +76,25 @@ cd Tech-Challenge-Fase-1-FIAP
 # Instale dependências
 pip install -r requirements.txt
 
-# Execute a API
+# Execute o Jupyter
+jupyter notebook
+```
+
+Abra e execute, nesta ordem:
+
+1. `notebooks/analise_exploratoria_NPS.ipynb`
+2. `notebooks/modelo_regressao_nps.ipynb`
+
+---
+
+# API REST
+
+A aplicação disponibiliza uma API Flask para previsão de NPS individual e em lote.
+
+## Como executar a API
+
+```bash
+# Execute a aplicação
 python app.py
 ```
 
@@ -84,19 +104,21 @@ A API será iniciada em:
 http://localhost:5000
 ```
 
+---
+
 ## Documentação Swagger
 
-A documentação interativa da API está disponível via Swagger UI:
+A documentação interativa está disponível em:
 
 ```bash
 http://localhost:5000/docs
 ```
 
-Nela é possível:
+Permite:
 
-- visualizar todos os endpoints
-- testar requisições diretamente no navegador
-- validar payloads de entrada
+- visualizar endpoints
+- testar requisições
+- validar payloads
 - consultar exemplos de resposta
 
 ---
@@ -125,7 +147,7 @@ Resposta:
 POST /predict
 ```
 
-Exemplo de payload:
+Payload de exemplo:
 
 ```json
 {
@@ -163,7 +185,7 @@ Resposta:
 POST /predict/batch
 ```
 
-Recebe uma lista de registros JSON.
+Recebe lista de registros JSON.
 
 Resposta:
 
